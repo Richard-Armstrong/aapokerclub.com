@@ -69,7 +69,6 @@
         <section class="projects-section bg-light" id="standings">
             <div class="container px-4 px-lg-5">
 				<h1>Standings</h1>
-
                 <!-- Featured Project Row-->
                 <div class="row gx-0 mb-4 mb-lg-5 ">
                     <div class="col-xl-4 col-lg-5">
@@ -166,7 +165,6 @@
 						</p>
                     </div>
                 </div>
-                <img class="img-fluid" src="<?php echo base_url("assets/img/ipad.png") ?>" alt="..." />
             </div>
         </section>
 
