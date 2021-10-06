@@ -47,7 +47,7 @@
                     <ul class="navbar-nav ms-auto">
 						<li class="nav-item"><a class="nav-link" href="#standings">Standings</a></li>
                         <li class="nav-item"><a class="nav-link" href="#rules">Rules</a></li>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url("index.php/admin");?>">Admin</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo base_url("index.php/management/tourneys");?>">Admin</a></li>
                     </ul>
                 </div>
             </div>
