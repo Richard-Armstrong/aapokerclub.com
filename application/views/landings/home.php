@@ -81,8 +81,8 @@
 										<th>Total Points</th>
 									</tr>
 									<?php foreach ($leaderboard_records as $record) {?>
-										<tr onClick="show('Player_<?php echo $record->poker_player_id;?>')" >
-											<td id="td_Player_<?php echo $record->poker_player_id;?>"><?php echo $record->FirstName; ?></td>
+										<tr onClick="show('Player_<?php echo $record->player_id;?>')" >
+											<td id="td_Player_<?php echo $record->player_id;?>"><?php echo $record->FirstName; ?></td>
 											<td><?php echo $record->total_points; ?></td>
 										</tr>
 									<?php } ?>

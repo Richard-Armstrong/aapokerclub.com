@@ -25,21 +25,78 @@ class Tournament_Results_Model extends MY_Model {
 
 
 	public function get_leaderboard() {
-		$sql = "select y.FirstName, sum(x.points) AS total_points, y.ID as poker_player_id
-				from poker_players y,
-				(select a.player_id, a.points
-				from tournament_results a
-				where 10 >= (select count(b.points)
-					from tournament_results b
-					where a.player_id = b.player_id
-					and b.points >= a.points
-					group by b.player_id)
-				order by a.player_id, a.points desc) x
-				where y.ID = x.player_id
-				group by y.ID, y.FirstName
-				order by total_points desc, y.FirstName;";
+		/*
+		// Grab a list of the distinct player_id's from the database
+	 	$sql = "select distinct player_id, FirstName from tournament_results
+				RIGHT JOIN poker_players PP on PP.ID=player_id";
+		$q = $this->db->query($sql);
+		$player_list = $q->result();
+
+		$unsorted = array();
+		$sorted = array();
+		echo "<pre>";
+
+		// Loop through the results and pull the top ten results for each player
+		foreach($player_list as $record) {
+			$sql = "SELECT points FROM tournament_results
+					WHERE player_id={$record->player_id}
+					ORDER BY points desc
+					LIMIT 10";
+			$q = $this->db->query($sql);
+			$player_results = $q->result();
+
+			$player_points = 0;
+			// Loop through the results and sum the top 10 scores
+			foreach($player_results as $tourney_points) {
+				$player_points += $tourney_points->points;
+			}
+			$unsorted[$record->player_id]['player_name'] = $record->FirstName;
+			$unsorted[$record->player_id]['total_points'] = $player_points;
+		}
+
+		$current_high_score = 0;
+		$current_high_name = '';
+		$record_count = 0;
+		// Now sort the array for display
+		//for($x=0;$x<=count($unsorted); $x++) {
+		while(!empty($unsorted)) {
+			echo "<br>Count - " . count($unsorted) . "<br>";
+			foreach($unsorted as $key=>$record) {
+				echo "<br>Current_high " . $current_high_score;
+				echo "<br>Looking at :" . $record['total_points'];
+				if ($record['total_points'] > $current_high_score) {
+					$current_high_name = $record['player_name'];
+					$current_high_score = $record['total_points'];
+					$current_key = $key;
+				}
+			}
+			$sorted[$record_count]['player_id'] = $current_key;
+			$sorted[$record_count]['player_name'] = $current_high_name;
+			$sorted[$record_count]['total_points'] = $current_high_score;
+
+			$current_high_score=0;
+			unset($unsorted[$key]);
+			$record_count += 1;
+		}
+		print_r($sorted);
+		die();
+*/
+
+		$sql = "select x.player_id, y.FirstName, sum(x.points) AS total_points
+				from (
+				select r.player_id, r.points,
+				row_number() over (partition by r.player_id order by r.player_id, r.points desc) as points_rank
+				from tournament_results r
+				order by r.player_id, r.points desc
+				) x, poker_players y
+				where points_rank between 1 and 10
+				and x.player_id = y.ID
+				group by x.player_id, y.FirstName
+				order by sum(x.points) desc, y.FirstName;";
 		$q = $this->db->query($sql);
 		return $q->result();
+
+
 	}
 
 	public function get_all_results() {
