@@ -116,7 +116,7 @@ class Tournament_Results_Model extends MY_Model {
  				RIGHT JOIN tournaments T on T.ID=tourney_id
 				RIGHT JOIN poker_players PP on PP.ID=TR.player_id
 				GROUP BY player_id, TR.position, TR.points, tourney_date, tourney_id, FirstName
-				ORDER BY player_id, tourney_date, position, points, tourney_id, FirstName";
+				ORDER BY points desc, player_id, tourney_date, position, player_id, tourney_id, FirstName";
 		$q = $this->db->query($sql);
 		return $q->result();
 	}
