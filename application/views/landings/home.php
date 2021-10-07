@@ -65,6 +65,7 @@
                 </div>
             </div>
         </header>
+
 		<!-- Standings-->
         <section class="projects-section bg-light" id="standings">
             <div class="container px-4 px-lg-5">
@@ -79,10 +80,10 @@
 										<th>Player</th>
 										<th>Total Points</th>
 									</tr>
-									<?php foreach ($leaderboard_records as $record) {?>
-										<tr onClick="show('Player_<?php echo $record->player_id;?>')" >
-											<td id="td_Player_<?php echo $record->player_id;?>"><?php echo $record->FirstName; ?></td>
-											<td><?php echo $record->total_points; ?></td>
+									<?php foreach ($leaderboard_records as $record) { ?>
+										<tr onClick="show('Player_<?php echo $record['player_id'];?>')" >
+											<td id="td_Player_<?php echo $record['player_id'];?>"><?php echo $record['player_name']; ?></td>
+											<td><?php echo $record['total_points']; ?></td>
 										</tr>
 									<?php } ?>
 								</table>

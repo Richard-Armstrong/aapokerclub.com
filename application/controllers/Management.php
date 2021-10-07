@@ -235,6 +235,12 @@ class Management extends MY_Controller {
 		}
 	}
 
+	public function delete_player($id) {
+		$this->load->model('players_model');
+
+		
+	}
+
 	/************************************************************ Groups */
 	public function groups() {
 		$this->load->library('ion_auth');
